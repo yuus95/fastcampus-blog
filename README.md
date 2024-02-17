@@ -3,6 +3,10 @@
 ### yarn을 사용하는 이유
 - Npm과 똑같은 패키지 매니징 툴이지만 yarn은 병렬로 모듈을 다운받을 수 있어 속도가 좀 더 빠르고, 보안에도 더 강화되어있다.
 
+### yarn 을 이용하여 create-react
+```
+yarn create react-app fastcampus-blog-app --template typescript
+```
 
 ### React-router-dom
 - React 앱의 라우팅 처리를 위한 라이브러리 
@@ -22,8 +26,12 @@
 
 
 ## 설치 방법
-
+ 
 ```
 yarn add react-router-dom  //라우터 다운로드
 yarn add --dev @types/react-router-dom
 ```
+
+
+## 타입스크립트 함수
+타입스크립트 함수는 첫 글자가 대문자여야만 생성이 가능하다.
