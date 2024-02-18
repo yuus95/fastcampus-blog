@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+## 배운 내용 정리 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### yarn을 사용하는 이유
+- Npm과 똑같은 패키지 매니징 툴이지만 yarn은 병렬로 모듈을 다운받을 수 있어 속도가 좀 더 빠르고, 보안에도 더 강화되어있다.
 
-## Available Scripts
+### yarn 을 이용하여 create-react
+```
+yarn create react-app fastcampus-blog-app --template typescript
+```
 
-In the project directory, you can run:
+### React-router-dom
+- React 앱의 라우팅 처리를 위한 라이브러리 
 
-### `yarn start`
+라우팅: 사용자의 요청에 따라 적절한 컴포넌트를 랜더링하는 것을 의미한다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+쉬운 설치와 설정
+- npm 혹은 Yarn을 통해 간단하게 설치
 
-### `yarn test`
+선언적인 라우팅:
+- 컴포넌트 기반으로 라우팅 정의 가능
+- 코드의 가독성 및 유지보수성 높임
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+다양한 라우팅기능:
+- 링크, 중첩된 라우팅, 동적 경로 등 복잡한 라우팅 처리 가능
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 설치 방법
+ 
+```
+yarn add react-router-dom  //라우터 다운로드
+yarn add --dev @types/react-router-dom
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 타입스크립트 함수
+타입스크립트 함수는 첫 글자가 대문자여야만 생성이 가능하다.
 
-### `yarn eject`
+## visual Studio Code
+- 파일 찾이 cm + p 
+- 정렬 shift + option + F
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 데모 글 참조
+https://www.lipsum.com/feed/html
