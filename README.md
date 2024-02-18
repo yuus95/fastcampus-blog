@@ -35,3 +35,11 @@ yarn add --dev @types/react-router-dom
 
 ## 타입스크립트 함수
 타입스크립트 함수는 첫 글자가 대문자여야만 생성이 가능하다.
+
+## visual Studio Code
+- 파일 찾이 cm + p 
+- 정렬 shift + option + F
+
+
+## 데모 글 참조
+https://www.lipsum.com/feed/html

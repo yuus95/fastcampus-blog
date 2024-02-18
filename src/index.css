@@ -23,13 +23,19 @@ align-items: 세로 축을 기준으로 정렬
 
 header {
   display: flex;
-  flex-direction: row-reverse;
+  /* flex-direction: row-reverse; */
   justify-content: space-between;
   align-items: center;
 
   border-bottom: 1px solid #f2f2f2;
   padding: 10px 40px;
   min-height: 40px;
+}
+
+header .header__logo {
+  color: black;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 /**
@@ -87,9 +93,10 @@ footer a:hover {
   font-weight: 600;
 }
 
-/* post list */
+/* post list, post detail*/
 
-.post__list {
+.post__list,
+.post__detail {
   /* view 포트 기준으로  90 프로를 준다는 개념 */
   min-height: 90vh;
   padding: 20px 40px;
@@ -106,23 +113,18 @@ footer a:hover {
   border-top: 1px solid #f2f2f2;
 }
 
-.post__profile-box {
+.post__profile__box {
   display: flex;
   gap: 8px;
   font-size: 14px;
   align-items: center;
 }
 
-.post__profile {
+.profile {
+  background-color: #f2f2f2;
   width: 36px;
   height: 36px;
-  background-color: #f2f2f2;
   border-radius: 50%;
-}
-
-.post__author-name,
-.post__date {
-  color: gray;
 }
 
 .post__title {
@@ -154,8 +156,72 @@ footer a:hover {
   color: black;
 }
 
-
 .post__edit:hover,
 .post__edit:focus {
+  color: black;
+}
+
+
+.post__detail .post__title {
+  font-size: 50px;
+  line-height: 40px;
+}
+
+.post__detail .post__utils-box {
+  padding: 10px 0px;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  flex-direction: row;
+}
+
+.post__detail .post__profile__box {
+  padding: 10px 0px;
+}
+.post__detail .post__text {
+  padding: 20px 0px;
+}
+
+/* profile */
+.profile__box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 18px;
+  margin: 0 auto;
+  max-width: 680px;
+  line-height: 24px;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.flex__box-lg {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.profile__image {
+  width: 72px;
+  height: 72px;
+  background-color: #f2f2f2;
+  border-radius: 50px;
+}
+
+.profile__name {
+  font-size: 16px;
+  padding-top: 4px;
+}
+
+.profile__email {
+  font-weight: 500;
+}
+
+.profile__logout {
+  color:gray;
+  font-size: 14px;
+}
+
+.profile__logout:hover,
+.profile__logout:focus{
   color: black;
 }
