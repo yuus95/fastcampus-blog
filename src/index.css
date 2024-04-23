@@ -100,7 +100,6 @@ footer a:hover {
   /* view 포트 기준으로  90 프로를 준다는 개념 */
   min-height: 90vh;
   padding: 20px 40px;
-  text-align: center;
   max-width: 680px;
   margin: 0 auto;
   text-align: left;
