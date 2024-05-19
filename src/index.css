@@ -224,3 +224,21 @@ footer a:hover {
 .profile__logout:focus{
   color: black;
 }
+
+
+/* Carousel */
+.carousel {
+  margin: 0 auto;
+  max-width: 980px;
+  margin-top: 36px;
+}
+
+ul.carousel__slides {
+  display: block;
+  position: relative;
+  height: 400px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+}

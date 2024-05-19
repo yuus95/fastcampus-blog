@@ -9,89 +9,75 @@ const IMAGE_3_URL =
 
 
 export default function Carousel() {
-    const [activeImage, setActiveImage] = useState(1);
+    const [activeImage, setActive] = useState(1);
 
-    <div className="">
-        <div>
-            <ul>
-                <input type="radio"
-                    name="radio-buttons"
-                    id="img-1"
-                    checked={activeImage === 1}
-                    readOnly
-                />
-                <li >
-                    <div className="carousel__slide-container">
-                        <div className="carousel__slide-img">
-                            <img src={IMAGE_1_URL} alt="scenery 1" />                               
+    return (
+        <>
+            <div className="carousel">
+                <ul className="carousel__slides">
+                    <input type="radio"
+                        name="radio-buttons"
+                        id="img-1"
+                        checked={activeImage === 1}
+                        readOnly />
+                    <li className="carousel__slider-container">
+                        <div className="carousel__slider-img">
+                            <img src={IMAGE_1_URL} alt="scenery 1" />
                         </div>
-                        <div className="carousel__controls">
-                            <label onClick={()=> setActiveImage(3)} 
-                                   className="carousel__slide-prev">
-                                    <span>&lsaquo;</span>
+                        <div className="carousel_controls">
+                            <label
+                                onClick={() => setActive(3)}
+                                className="carousel__slide-prev"
+                            >&lsaquo;</label>
+                            <label onClick={() => setActive(2)}
+                                className="carousel__slide-next"
+                            >&rsaquo;</label>
+                        </div>
+                    </li>
+
+                    <input type="radio"
+                        name="radio-buttons"
+                        id="img-2"
+                        checked={activeImage === 2}
+                        readOnly />
+                    <li className="carousel__slider-container">
+                        <div className="carousel__slider-img">
+                            <img src={IMAGE_2_URL} alt="scenery 2" />
+                        </div>
+                        <div className="carousel__slider_controls">
+                            <label onClick={() => setActive(1)}
+                                className="carousel__slide-prev">
+                                &lsaquo;
                             </label>
-                            <label onClick={() => setActiveImage(2)}
-                                    className="carousel__slide-next">
-                                    <span>&lsaquo;</span>
+                            <label onClick={() => setActive(3)}
+                                className="carousel__slide-next">
+                                &rsaquo;
                             </label>
                         </div>
-                    </div>
-                </li>
-                <input type="radio"
-                name="radio-buttons"
-                id="img-2"
-                checked={activeImage === 2}
-                readOnly />
-                <li className="carousel__slide-container">
-                    <div className="carousel__slide-img">
-                        <img src={IMAGE_2_URL} alt="scenery 2" />
-                    </div>
-                    <div className="carousel__controls">
-                        <label onClick={()=> setActiveImage(1)}
-                                className="carousel__slide-prev">
-                                    <span>&lsaquo;</span>
-                        </label>
-                        <label onClick={()=> setActiveImage(3)}
+                    </li>
+
+                    <input type="radio"
+                        name="radio-buttons"
+                        id="img 3"
+                        checked={activeImage === 3}
+                        readOnly />
+                    <li className="carousel__slide_container">
+                        <div>
+                            <img src={IMAGE_3_URL} alt="scnery 3"/>
+                        </div>
+                        <div>
+                            <label onClick={() => setActive(2)}
+                                className="carousel__slide-prec">
+                                &lsaquo;
+                            </label>
+                            <label onClick={() => setActive(1)}
                                 className="carousel__slide-next">
-                                    <span>&lsaquo;</span>
-                        </label>
-                    </div>
-                </li>
-                <input type="radio"
-                name="radio-buttons"
-                id="img-3"
-                checked={activeImage === 3}
-                readOnly />
-                <li className="carousel__slide-container">
-                    <div className="carousel__slide-img">
-                        <img src={IMAGE_3_URL} alt="scenery 3" />
-                    </div>
-                    <div className="carousel__controls">
-                        <label onClick={()=> setActiveImage(2)}
-                                className="carousel__slide-prev">
-                                    <span>&lsaquo;</span>
-                        </label>
-                        <label onClick={()=> setActiveImage(1)}
-                                className="carousel__slide-next">
-                                    <span>&lsaquo;</span>
-                        </label>
-                    </div>
-                </li>
-                <div className="carousel__dots">
-                    <label onClick={() => setActiveImage(1)}
-                    className="carousel__dot"
-                    id="img-dot-1">
-                    </label>
-                    <label onClick={() => setActiveImage(2)}
-                    className="carousel__dot"
-                    id="img-dot-2">
-                    </label>
-                    <label onClick={() => setActiveImage(3)}
-                    className="carousel__dot"
-                    id="img-dot-3">
-                    </label>
-                </div>
-            </ul>
-        </div>
-    </div>
+                                &rsaquo;
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </>
+    )
 }
