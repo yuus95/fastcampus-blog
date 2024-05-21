@@ -20,11 +20,11 @@ export default function Carousel() {
                         id="img-1"
                         checked={activeImage === 1}
                         readOnly />
-                    <li className="carousel__slider-container">
-                        <div className="carousel__slider-img">
+                    <li className="carousel__slide-container">
+                        <div className="carousel__slide-img">
                             <img src={IMAGE_1_URL} alt="scenery 1" />
                         </div>
-                        <div className="carousel_controls">
+                        <div className="carousel__controls">
                             <label
                                 onClick={() => setActive(3)}
                                 className="carousel__slide-prev"
@@ -40,11 +40,11 @@ export default function Carousel() {
                         id="img-2"
                         checked={activeImage === 2}
                         readOnly />
-                    <li className="carousel__slider-container">
-                        <div className="carousel__slider-img">
+                    <li className="carousel__slide-container">
+                        <div className="carousel__slide-img">
                             <img src={IMAGE_2_URL} alt="scenery 2" />
                         </div>
-                        <div className="carousel__slider_controls">
+                        <div className="carousel__controls">
                             <label onClick={() => setActive(1)}
                                 className="carousel__slide-prev">
                                 &lsaquo;
@@ -58,16 +58,16 @@ export default function Carousel() {
 
                     <input type="radio"
                         name="radio-buttons"
-                        id="img 3"
+                        id="img-3"
                         checked={activeImage === 3}
                         readOnly />
-                    <li className="carousel__slide_container">
-                        <div>
-                            <img src={IMAGE_3_URL} alt="scnery 3"/>
+                    <li className="carousel__slide-container">
+                        <div className="carousel__slide-img">
+                            <img src={IMAGE_3_URL} alt="scenery 3" />
                         </div>
-                        <div>
+                        <div className="carousel__controls">
                             <label onClick={() => setActive(2)}
-                                className="carousel__slide-prec">
+                                className="carousel__slide-prev">
                                 &lsaquo;
                             </label>
                             <label onClick={() => setActive(1)}
@@ -76,6 +76,25 @@ export default function Carousel() {
                             </label>
                         </div>
                     </li>
+
+                    <div className="carousel__dots">
+                        <label
+                            onClick={() => setActive(1)}
+                            className="carousel__dot"
+                            id="img-dot-1"
+                        ></label>
+                        <label
+                            onClick={() => setActive(2)}
+                            className="carousel__dot"
+                            id="img-dot-2"
+                        ></label>
+                        <label
+                            onClick={() => setActive(3)}
+                            className="carousel__dot"
+                            id="img-dot-3"
+                        ></label>
+                    </div>
+
                 </ul>
             </div>
         </>
