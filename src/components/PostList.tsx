@@ -34,7 +34,6 @@ export default function PostList({hasNavigation = true}: PostListProps) {
                                 <div className="post__delete">삭제</div>
                                 <div className="post__edit">수정</div>
                             </div>
-
                         </Link>
                     </div>
                 ))}
