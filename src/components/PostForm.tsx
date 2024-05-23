@@ -1,9 +1,8 @@
 
-
 export default function PostForm() {
     return (
         <>
-            <form action="/post" method="POST" className="form">
+        <form action="/post" method="POST" className="form">
                 <div className="form__block">
                     <label htmlFor="title">제목 </label>
                     <input type="text"
@@ -23,7 +22,12 @@ export default function PostForm() {
                     <textarea name="content"
                         id="content" />
                 </div>
+
+                <div className="form__block">
+                    <input type="button" className="form__btn--submit" value="제출"/>
+                </div>
             </form>
         </>
+        
     )
 }
