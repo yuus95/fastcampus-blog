@@ -431,3 +431,16 @@ input:checked + .carousel__slide-container .nav label {
 .form__link:hover, .form__link:focus {
   color: black;
 }
+
+/* carouselTest */
+
+.carouselTest {
+  margin: 0;
+  max-width: 980;
+  margin-top: 36px;
+}
+
+ul.carouselTest__slides {
+  display: block;
+  position: relative;
+}

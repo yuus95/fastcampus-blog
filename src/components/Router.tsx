@@ -9,6 +9,7 @@ import Profile from "../pages/profile/index";
 import SignupPage from "../pages/signup";
 import LoginPage from "../pages/login";
 import { useState } from "react";
+import TestPage from "pages/test";
 
 export default function Router() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -29,6 +30,7 @@ export default function Router() {
       <>
       <Route path="/login" element={<LoginPage/>}> </Route>
       <Route path="/signup" element={<SignupPage/>}> </Route>
+      <Route path="/test-carousel" element={<TestPage/>}></Route>
       <Route path="/*" element={<Navigate replace to="/login" />}/>
       </>
     }
