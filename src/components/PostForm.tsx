@@ -20,7 +20,7 @@ export default function PostForm() {
                 <div className="form__block">
                     <label htmlFor="content">내용 </label>
                     <textarea name="content"
-                        id="content" />
+                        id="content"  />
                 </div>
 
                 <div className="form__block">
