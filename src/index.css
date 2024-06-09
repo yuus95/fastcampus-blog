@@ -432,6 +432,10 @@ input:checked + .carousel__slide-container .nav label {
   color: black;
 }
 
+.form .form__block__error{
+  color: red;
+}
+
 /* carouselTest */
 
 .carouselTest {

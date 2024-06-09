@@ -1,4 +1,3 @@
-import { on } from "events";
 import { useState } from "react"
 
 
@@ -31,7 +30,6 @@ export default function SignUp() {
                 console.log("password error")
                 setError("비밀번호는 8글자 이상입니다.");
             } else if (passwordConfirm.length > 0 && password !== passwordConfirm) {
-                console.log(error);
                 setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.")
             } else {
                 setError("");
@@ -40,12 +38,12 @@ export default function SignUp() {
 
         if (name === 'password_confirm') {
             setPasswordConfirm(value);
+
             if (value.length < 8) {
                 setError("비밀번호는 8글자 이상입니다.");
             } else if (password.length > 0 && passwordConfirm !== password) {
                 setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.")
-                console.log(error);
-            }else {
+            } else {
                 setError("");
             }
         }
@@ -81,8 +79,18 @@ export default function SignUp() {
                         required />
                 </div>
 
+                {error && error.length > 0 && 
+                <div className="form__block__error">
+                    {error}
+                </div>}
+
                 <div className="form__block">
-                    <input type="submit" className="form__btn--submit" value="회원가입" />
+                    <input
+                        type="submit"
+                        className="form__btn--submit"
+                        value="회원가입"
+                        disabled={error?.length>0}
+                    />
                 </div>
             </form>
         </>
