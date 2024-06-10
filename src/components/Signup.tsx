@@ -1,12 +1,26 @@
 import { useState } from "react"
+import firebaseApp from "firebaseApp";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 
 export default function SignUp() {
-    const [error, setError] = useState<String>("");
-    const [email, setEmail] = useState<String>("");
-    const [password, setPassword] = useState<String>("");
-    const [passwordConfirm, setPasswordConfirm] = useState<String>("");
+    const [error, setError] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [passwordConfirm, setPasswordConfirm] = useState<string>("");
 
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const auth = getAuth(firebaseApp);
+            await createUserWithEmailAndPassword(auth, email, password);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
 
     // TODO toastify 설정하기, Error 블록만들기
@@ -27,9 +41,9 @@ export default function SignUp() {
         if (name === 'password') {
             setPassword(value);
             if (value.length < 8) {
-                console.log("password error")
                 setError("비밀번호는 8글자 이상입니다.");
-            } else if (passwordConfirm.length > 0 && password !== passwordConfirm) {
+            } else if (passwordConfirm.length > 0 && value !== passwordConfirm) {
+                console.log('password', password, ' passowrdConfirm', passwordConfirm)
                 setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.")
             } else {
                 setError("");
@@ -38,10 +52,10 @@ export default function SignUp() {
 
         if (name === 'password_confirm') {
             setPasswordConfirm(value);
-
             if (value.length < 8) {
                 setError("비밀번호는 8글자 이상입니다.");
-            } else if (password.length > 0 && passwordConfirm !== password) {
+            } else if (password.length > 0 && value !== password) {
+                console.log('password', password, ' passowrdConfirm', passwordConfirm)
                 setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.")
             } else {
                 setError("");
@@ -52,7 +66,7 @@ export default function SignUp() {
 
     return (
         <>
-            <form action="/post" method="POST" className="form form--lg">
+            <form onSubmit={onSubmit} className="form form--lg">
                 <h1 className="form__title"> 회원가입 </h1>
                 <div className="form__block">
                     <label htmlFor="email">아이디 </label>
@@ -79,17 +93,21 @@ export default function SignUp() {
                         required />
                 </div>
 
-                {error && error.length > 0 && 
-                <div className="form__block__error">
-                    {error}
-                </div>}
+                {error && error.length > 0 && (
+                    <div className="form__block">
+                        <div className="form__block__error">
+                            {error}
+                        </div>
+                    </div>
+                )}
+
 
                 <div className="form__block">
                     <input
                         type="submit"
                         className="form__btn--submit"
                         value="회원가입"
-                        disabled={error?.length>0}
+                        disabled={error?.length > 0}
                     />
                 </div>
             </form>
