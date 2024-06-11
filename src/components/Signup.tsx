@@ -1,6 +1,8 @@
 import { useState } from "react"
 import firebaseApp from "firebaseApp";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
+
 
 
 
@@ -16,15 +18,14 @@ export default function SignUp() {
         try {
             const auth = getAuth(firebaseApp);
             await createUserWithEmailAndPassword(auth, email, password);
+            toast.success("회원가입에 성공했습니다.");
         }
-        catch (error) {
+        catch (error: any) {
             console.log(error);
+            toast.error(error?.code);
         }
     }
 
-
-    // TODO toastify 설정하기, Error 블록만들기
-    // Input onChange에서 사용할 수 있는 property
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         if (name === 'email') {
