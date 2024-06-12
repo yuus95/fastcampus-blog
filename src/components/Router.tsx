@@ -8,11 +8,14 @@ import Edit from "../pages/posts/edit";
 import Profile from "../pages/profile/index";
 import SignupPage from "../pages/signup";
 import LoginPage from "../pages/login";
-import { useState } from "react";
 import TestPage from "pages/test";
 
-export default function Router() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+interface RouterProps {
+  isAuthenticated: boolean;
+}
+
+export default function Router({isAuthenticated}: RouterProps) {
+
 
   return (
     <>
