@@ -1,18 +1,28 @@
+import { getAuth, signOut } from "firebase/auth";
+import firebaseApp from "firebaseApp";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Profile() {
+    const auth = getAuth(firebaseApp);
+    console.log(auth);
+    
     return (
         <div className="profile__box">
             <div className="flex__box-lg">
                 <div className="profile__image"></div>
                 <div>
-                    <div className="profile__email">test@test.com</div>
-                    <div className="profile__name">김모모</div>
+                    <div className="profile__email">{auth?.currentUser?.email}</div>
+                    <div className="profile__name">{auth?.currentUser?.displayName ? auth?.currentUser?.displayName : '사용자' }</div>
                 </div>
             </div>
-            <Link to="/" className="profile__logout" >
+            <div onClick={ async() => {
+                getAuth(firebaseApp);
+                await signOut(auth)
+                toast.success("로그아웃에 성공했습니다.")
+            } } className="profile__logout" >
                 로그아웃
-            </Link>
+            </div>
 
         </div>
     )
