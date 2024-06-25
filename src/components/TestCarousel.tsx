@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 
 const IMAGE_1_URL =
@@ -9,15 +10,36 @@ const IMAGE_3_URL =
 
 
 export default function TestCarousel() {
-    return  <>
+    const [activeImage, setActive] = useState(1);
+    
+    return <>
         <div className="carouselTest">
             <ul className="carouselTest__slides">
-                <input type="radio"  name="radio-buttons" id="img-1" readOnly/>
-                <li>
-                    <div></div>
+                <input type="radio" name="radio-buttons" id="img-1" 
+                checked = {activeImage === 1}
+                readOnly />
+                <li className="carouselTest__slide-container">
+                    <div className="carouselTest__slide-img"><img src={IMAGE_1_URL} alt="test" /></div>
                     <div className="carouselTest__controls">
-                        <label ></label>
-                        <label ></label>
+                        <label
+                            className="carousel__slide-prev"
+                        >&lsaquo;</label>
+                        <label
+                            className="carousel__slide-next"
+                        >&rsaquo;</label>
+                    </div>
+                </li>
+
+                <input type="radio" name="radio-buttons" id="img-2" readOnly />
+                <li className="carouselTest__slide-container">
+                    <div><img src={IMAGE_2_URL} alt="test" /></div>
+                    <div className="carouselTest__controls">
+                        <label
+                            className="carousel__slide-prev"
+                        >&lsaquo;</label>
+                        <label
+                            className="carousel__slide-next"
+                        >&rsaquo;</label>
                     </div>
                 </li>
             </ul>
