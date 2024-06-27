@@ -7,7 +7,7 @@ interface AuthProps {
     children: ReactNode;
   }
 
-const AuthContext = createContext({
+export const AuthContext = createContext({
     user: null as User | null,
 })
 
@@ -32,5 +32,3 @@ export function AuthContextProvider({ children }: AuthProps) {
         </AuthContext.Provider>
       );
 }
-
-export default AuthContext;

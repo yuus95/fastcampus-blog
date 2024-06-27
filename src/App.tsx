@@ -2,7 +2,7 @@ import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Router from "./components/Router";
 import 'react-toastify/dist/ReactToastify.css';
-import firebaseApp from './firebaseApp'
+import firebaseApp, { db } from './firebaseApp'
 import {getAuth,onAuthStateChanged} from 'firebase/auth'
 
 import { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
+  console.log(db);
   const auth = getAuth(firebaseApp);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
