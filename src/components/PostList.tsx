@@ -1,10 +1,41 @@
+import { AuthContext } from "context/Authenticate";
+import { getAuth } from "firebase/auth";
+import firebaseApp from "firebaseApp";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { db } from "../firebaseApp";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
 interface PostListProps{
     hasNavigation?: boolean;
 }
 
+
+interface PostProps {
+    id: string,
+    title:string,
+    context:string,
+    summary:string,
+    createAt:string,
+    email:string,
+}
 export default function PostList({hasNavigation = true}: PostListProps) {
+    const [post,setPost] = useState<PostProps>();
+    
+    const postList =  async() => {
+        const querySnapshot = await getDocs(collection(db, "posts"));
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            const id = doc.id
+            const apiObject = {...doc.data(),id}
+          });
+          
+    }
+
+    useEffect(() => {
+        postList();
+    },[])
+
     return (
         <>
             {hasNavigation && (
