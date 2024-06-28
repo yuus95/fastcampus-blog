@@ -9,8 +9,6 @@ import { useEffect, useState } from 'react';
 
 
 function App() {
-
-  console.log(db);
   const auth = getAuth(firebaseApp);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
