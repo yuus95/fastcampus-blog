@@ -1,25 +1,51 @@
+import { doc } from "@firebase/firestore";
+import { getDoc } from "firebase/firestore";
+import { db } from "../firebaseApp";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router"
+import { PostProps } from "./PostList";
+
 export default function PostDetail() {
+    const [post, setPost] = useState<PostProps | null>(null);
+
+    const params = useParams();
+
+    const getPost = async (id: string) => {
+        const docRef = doc(db, "posts", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const obj = {id: id, ...docSnap.data()}
+            setPost(obj as PostProps);
+        }
+    }
+
+    useEffect(() => {
+        getPost(params?.id as string);
+    },[params?.id])
+
+    const onClickDelete = () => {
+        console.log("execute delete");
+    }
+
+
     return <>
         <div className="post__detail">
             <div className="post__box"></div>
             <div className="post__title">
-                Lorem Ipsum
+                {post?.title}
             </div>
             <div className="post__profile__box">
                 <div className="profile" />
-                <div className="post__author">김모모</div>
-                <div className="post__date">2024.01.24 17:18 토요일</div>
+                <div className="post__author">{post?.email}</div>
+                <div className="post__date">{post?.createdAt}</div>
             </div>
             <div className="post__utils-box">
-                <div className="post__delete">삭제</div>
+                <div className="post__delete" onClick={onClickDelete}>삭제</div>
                 <div className="post__edit">수정</div>
             </div>
             <div className="post__text">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a
-                type specimen book. It has survived not only five centuries,
-                but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                {post?.content}
             </div>
         </div>
     </>

@@ -9,12 +9,12 @@ interface PostListProps {
 }
 
 
-interface PostProps {
-    id: string,
+export interface PostProps {
+    id?: string,
     title: string,
-    context: string,
+    content: string,
     summary: string,
-    createAt: string,
+    createdAt: string,
     email: string,
 }
 
@@ -35,7 +35,6 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
         getPostList();
     }, [])
 
-    console.log(posts?.length);
     return (
         <>
             {hasNavigation && (
@@ -52,7 +51,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
                                 <div className="post__profile__box">
                                     <div className="profile" />
                                     <div className="post__author">{post?.email}</div>
-                                    <div className="post__date">{post?.createAt}</div>
+                                    <div className="post__date">{post?.createdAt}</div>
                                 </div>
                                 <div className="post__title">게시글 {post?.title}</div>
                                 <div className="post__text">
