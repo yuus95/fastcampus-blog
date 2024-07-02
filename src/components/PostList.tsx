@@ -79,7 +79,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
                             {user?.email === post?.email ?
                                 <div className="post__utils-box">
                                     <div className="post__delete" onClick={() => onClickDelete(post?.id as string)}>삭제</div>
-                                    <Link to={`/posts/edit/${post?.id}}`} className="post__edit">
+                                    <Link to={`/posts/edit/${post?.id}`} className="post__edit">
                                     <div className="post__edit">수정</div>
                                     </Link>
                                 </div>
