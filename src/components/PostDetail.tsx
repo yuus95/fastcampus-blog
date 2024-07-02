@@ -1,31 +1,48 @@
 import { doc } from "@firebase/firestore";
-import { getDoc } from "firebase/firestore";
+import { deleteDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseApp";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router"
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router"
 import { PostProps } from "./PostList";
+import { AuthContext } from "context/Authenticate";
+import { async } from "@firebase/util";
+import { toast } from "react-toastify";
 
 export default function PostDetail() {
     const [post, setPost] = useState<PostProps | null>(null);
+    const { user } = useContext(AuthContext);
 
     const params = useParams();
+    const navigate =useNavigate();
 
     const getPost = async (id: string) => {
         const docRef = doc(db, "posts", id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            const obj = {id: id, ...docSnap.data()}
+            const obj = { id: id, ...docSnap.data() }
             setPost(obj as PostProps);
         }
     }
 
     useEffect(() => {
         getPost(params?.id as string);
-    },[params?.id])
+    }, [params?.id])
 
-    const onClickDelete = () => {
-        console.log("execute delete");
+    const onClickDelete = async () => {
+        if (post && post.id) {
+            try {
+                console.log(post);
+                await deleteDoc(doc(db, "posts", post.id));
+                toast.success("게시글을 삭제했습니다.");
+                navigate("/");
+            }
+            catch (error: any) {
+                console.log(error);
+                toast.error(error);
+            }
+        }
+
     }
 
 
@@ -40,10 +57,14 @@ export default function PostDetail() {
                 <div className="post__author">{post?.email}</div>
                 <div className="post__date">{post?.createdAt}</div>
             </div>
-            <div className="post__utils-box">
-                <div className="post__delete" onClick={onClickDelete}>삭제</div>
-                <div className="post__edit">수정</div>
-            </div>
+            {post && post.email === user?.email ?
+                <div className="post__utils-box">
+                    <div className="post__delete" onClick={onClickDelete}>삭제</div>
+                    <div className="post__edit">수정</div>
+                </div>
+                :
+                <div></div>
+            }
             <div className="post__text">
                 {post?.content}
             </div>

@@ -1,8 +1,9 @@
 import { AuthContext } from "context/Authenticate";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebaseApp";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 interface PostListProps {
     hasNavigation?: boolean;
@@ -22,6 +23,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
     const [posts, setPosts] = useState<PostProps[]>([]);
 
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const getPostList = async () => {
         const querySnapshot = await getDocs(collection(db, "posts"));
@@ -29,6 +31,21 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
             const dataObj = { ...doc.data(), id: doc.id };
             setPosts((prev) => [...prev, dataObj as PostProps]);
         });
+    }
+
+    const onClickDelete = async (postId: string) => {
+        if (postId) {
+            try {
+
+                await deleteDoc(doc(db, "posts", postId));
+                toast.success("게시글을 삭제했습니다.");
+                navigate("/");
+            }
+            catch (error: any) {
+                console.log(error);
+                toast.error(error);
+            }
+        }
     }
 
     useEffect(() => {
@@ -60,12 +77,12 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
                             </Link>
 
                             {user?.email === post?.email ?
-                                <Link to={`/posts/edit/${post?.id}}`} className="post__edit">
-                                    <div className="post__utils-box">
-                                        <div className="post__delete">삭제</div>
-                                        <div className="post__edit">수정</div>
-                                    </div>
-                                </Link>
+                                <div className="post__utils-box">
+                                    <div className="post__delete" onClick={() => onClickDelete(post?.id as string)}>삭제</div>
+                                    <Link to={`/posts/edit/${post?.id}}`} className="post__edit">
+                                    <div className="post__edit">수정</div>
+                                    </Link>
+                                </div>
                                 : <div></div>
                             }
 
