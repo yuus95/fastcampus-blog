@@ -2,7 +2,7 @@ import { AuthContext } from "context/Authenticate";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebaseApp";
-import { collection, deleteDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 interface PostListProps {
@@ -26,7 +26,9 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
     const navigate = useNavigate();
 
     const getPostList = async () => {
-        const querySnapshot = await getDocs(collection(db, "posts"));
+        const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+        const querySnapshot = await getDocs(q);
+
         querySnapshot.forEach((doc) => {
             const dataObj = { ...doc.data(), id: doc.id };
             setPosts((prev) => [...prev, dataObj as PostProps]);
@@ -80,7 +82,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
                                 <div className="post__utils-box">
                                     <div className="post__delete" onClick={() => onClickDelete(post?.id as string)}>삭제</div>
                                     <Link to={`/posts/edit/${post?.id}`} className="post__edit">
-                                    <div className="post__edit">수정</div>
+                                        <div className="post__edit">수정</div>
                                     </Link>
                                 </div>
                                 : <div></div>

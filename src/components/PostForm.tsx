@@ -23,7 +23,6 @@ export default function PostForm() {
             if (params && params.id) {
                 const updatePost = doc(db, "posts", params.id);
 
-                // Set the "capital" field of the city 'DC'
                 await updateDoc(updatePost, {
                     title: title,
                     summary: summary,
