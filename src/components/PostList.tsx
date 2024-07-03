@@ -1,5 +1,5 @@
 import { AuthContext } from "context/Authenticate";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebaseApp";
 import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
@@ -7,8 +7,10 @@ import { toast } from "react-toastify";
 
 interface PostListProps {
     hasNavigation?: boolean;
+    postType?: PostType
 }
 
+type PostType = 'All' | 'My';
 
 export interface PostProps {
     id?: string,
@@ -19,14 +21,22 @@ export interface PostProps {
     email: string,
 }
 
-export default function PostList({ hasNavigation = true }: PostListProps) {
+export default function PostList({ hasNavigation = true, postType = 'My' }: PostListProps) {
     const [posts, setPosts] = useState<PostProps[]>([]);
+    const [activeTap, setType] = useState<PostType>(postType);
 
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const getPostList = async () => {
-        const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+        const postQueryRef = collection(db, "posts")
+        setPosts([]);
+        let q;
+        if (postType === 'My' && user) {
+            q = query(postQueryRef,where("email","==",user.email), orderBy("createdAt", "desc"));
+        } else {
+            q = query(postQueryRef, orderBy("createdAt", "desc"));
+        }
         const querySnapshot = await getDocs(q);
 
         querySnapshot.forEach((doc) => {
@@ -52,14 +62,16 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
 
     useEffect(() => {
         getPostList();
-    }, [])
+    }, [activeTap, getPostList])
 
     return (
         <>
             {hasNavigation && (
                 <div className="post__navigation">
-                    <div className="post__navigation-active">전체</div>
-                    <div>나의 글</div>
+                    <div role="presentation" 
+                    onClick={() => setType("All")} 
+                    className={activeTap === "All" ? "post__navigation-active" : ""} >전체</div>
+                    <div className={activeTap === "My" ? "post__navigation-active" : ""} onClick={() => setType('My')}>나의 글</div>
                 </div>
             )}
             <div className="post__list">
