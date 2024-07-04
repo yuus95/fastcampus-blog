@@ -176,6 +176,17 @@ footer a:hover {
   line-height: 40px;
 }
 
+.post__title {
+  display: flex;
+}
+
+.post__category {
+  font-size: 15px;
+  border: 1px solid gray;
+  border-radius: 10%;
+  margin-left:  15px;
+}
+
 .post__detail .post__utils-box {
   padding: 10px 0px;
   border-top: 1px solid #f2f2f2;

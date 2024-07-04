@@ -11,7 +11,7 @@ interface PostListProps {
 }
 
 export type Category = "WEB" | "BACKEND" | "NATIVE" | "FRONT";
-export const CategoryTap: Category[] = ["WEB", "BACKEND","FRONT","NATIVE"]
+export const CategoryTap: Category[] = ["WEB", "BACKEND", "FRONT", "NATIVE"]
 
 type PostType = 'All' | 'My';
 
@@ -22,6 +22,7 @@ export interface PostProps {
     summary: string,
     createdAt: string,
     email: string,
+    category?: string,
 }
 
 export default function PostList({ hasNavigation = true, postType = 'My' }: PostListProps) {
@@ -87,7 +88,14 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
                                     <div className="post__author">{post?.email}</div>
                                     <div className="post__date">{post?.createdAt}</div>
                                 </div>
-                                <div className="post__title">게시글 {post?.title}</div>
+                                <div className="post__title">
+                                    {post?.title} 
+                                    {post?.category && 
+                                    <div className="post__category"> 
+                                       {post?.category} 
+                                    </div>
+                                    }
+                                </div>
                                 <div className="post__text">
                                     {post?.summary}
                                 </div>
