@@ -3,8 +3,8 @@ import { AuthContext } from "context/Authenticate";
 import { db } from "../firebaseApp";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router";
-import { useContext, useEffect, useState } from "react";
-import { PostProps } from "./PostList";
+import React, { FormEventHandler, useContext, useEffect, useState } from "react";
+import { Category, CategoryTap, PostProps } from "./PostList";
 
 export default function PostForm() {
     const params = useParams();
@@ -12,6 +12,8 @@ export default function PostForm() {
     const [title, setTitle] = useState<string>("");
     const [summary, setSummary] = useState<string>("");
     const [content, setContent] = useState<string>("");
+    const [category, setCategory] = useState<Category | string>("");
+
 
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -40,6 +42,7 @@ export default function PostForm() {
                         minute: "2-digit",
                         second: "2-digit",
                     }),
+                    category: category,
                 });
 
                 toast?.success("게시글 등록이 완료됐습니다.");
@@ -53,7 +56,7 @@ export default function PostForm() {
 
 
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
         if (name === 'title') {
             setTitle(value);
@@ -65,6 +68,10 @@ export default function PostForm() {
 
         if (name === 'content') {
             setContent(value);
+        }
+
+        if (name ==='category'){
+            setCategory(value);
         }
     }
 
@@ -99,6 +106,20 @@ export default function PostForm() {
                         onChange={onChange}
                         value={title}
                         required />
+                </div>
+                <div className="form__block">
+                    <label htmlFor="category">카테고리 </label>
+                    <select
+                        id = "category"
+                        name="category"
+                        onChange={onChange}
+                        defaultValue={category}
+                        >
+                        <option value="">카테고리를 선택 해 주세요</option>
+                        {CategoryTap.map((category) => (
+                            <option value={category} >{category}</option>
+                        ))}
+                    </select>
                 </div>
                 <div className="form__block">
                     <label htmlFor="summary">요약 </label>

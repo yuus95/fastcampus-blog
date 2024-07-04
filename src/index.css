@@ -378,6 +378,13 @@ input:checked + .carousel__slide-container .nav label {
   width: 100%;
 }
 
+.form__block #category {
+  border: 1px solid lightgray;
+  height: 40;
+  border-radius: 10px;
+  padding: 10px 10px;
+}
+
 .form input {
   padding: 10px 10px;
   height: 20px;

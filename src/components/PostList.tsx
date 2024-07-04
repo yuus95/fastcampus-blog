@@ -10,6 +10,9 @@ interface PostListProps {
     postType?: PostType
 }
 
+export type Category = "WEB" | "BACKEND" | "NATIVE" | "FRONT";
+export const CategoryTap: Category[] = ["WEB", "BACKEND","FRONT","NATIVE"]
+
 type PostType = 'All' | 'My';
 
 export interface PostProps {
@@ -33,7 +36,7 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
         setPosts([]);
         let q;
         if (postType === 'My' && user) {
-            q = query(postQueryRef,where("email","==",user.email), orderBy("createdAt", "desc"));
+            q = query(postQueryRef, where("email", "==", user.email), orderBy("createdAt", "desc"));
         } else {
             q = query(postQueryRef, orderBy("createdAt", "desc"));
         }
@@ -62,15 +65,15 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
 
     useEffect(() => {
         getPostList();
-    }, [activeTap, getPostList])
+    }, [activeTap])
 
     return (
         <>
             {hasNavigation && (
                 <div className="post__navigation">
-                    <div role="presentation" 
-                    onClick={() => setType("All")} 
-                    className={activeTap === "All" ? "post__navigation-active" : ""} >전체</div>
+                    <div role="presentation"
+                        onClick={() => setType("All")}
+                        className={activeTap === "All" ? "post__navigation-active" : ""} >전체</div>
                     <div className={activeTap === "My" ? "post__navigation-active" : ""} onClick={() => setType('My')}>나의 글</div>
                 </div>
             )}
