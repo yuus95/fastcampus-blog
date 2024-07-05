@@ -27,22 +27,29 @@ export interface PostProps {
 
 export default function PostList({ hasNavigation = true, postType = 'My' }: PostListProps) {
     const [posts, setPosts] = useState<PostProps[]>([]);
-    const [activeTap, setType] = useState<PostType>(postType);
+    const [activeTab, setType] = useState<PostType | Category>(postType);
 
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const getPostList = async () => {
         const postQueryRef = collection(db, "posts")
+        console.log(activeTab);
         setPosts([]);
         let q;
         if (postType === 'My' && user) {
             q = query(postQueryRef, where("email", "==", user.email), orderBy("createdAt", "desc"));
-        } else {
+        } else if (postType ==="All"){
             q = query(postQueryRef, orderBy("createdAt", "desc"));
+        } else {
+            q = query(
+                postQueryRef,
+                where("category", "==", activeTab),
+                orderBy("createdAt", "asc")
+              );
         }
         const querySnapshot = await getDocs(q);
-
+        console.log(querySnapshot)
         querySnapshot.forEach((doc) => {
             const dataObj = { ...doc.data(), id: doc.id };
             setPosts((prev) => [...prev, dataObj as PostProps]);
@@ -66,7 +73,8 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
 
     useEffect(() => {
         getPostList();
-    }, [activeTap])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTab])
 
     return (
         <>
@@ -74,8 +82,11 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
                 <div className="post__navigation">
                     <div role="presentation"
                         onClick={() => setType("All")}
-                        className={activeTap === "All" ? "post__navigation-active" : ""} >전체</div>
-                    <div className={activeTap === "My" ? "post__navigation-active" : ""} onClick={() => setType('My')}>나의 글</div>
+                        className={activeTab === "All" ? "post__navigation-active" : ""} >전체</div>
+                    <div className={activeTab === "My" ? "post__navigation-active" : ""} onClick={() => setType('My')}>나의 글</div>
+                    {CategoryTap?.map((category) => (
+                        <div key={category} className={activeTab === category ? "post__navigation-active" : ""} onClick={() => setType(category)}>{category} </div>
+                    ))}
                 </div>
             )}
             <div className="post__list">
