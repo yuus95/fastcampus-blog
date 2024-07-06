@@ -37,9 +37,9 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
         console.log(activeTab);
         setPosts([]);
         let q;
-        if (postType === 'My' && user) {
+        if (activeTab === 'My' && user) {
             q = query(postQueryRef, where("email", "==", user.email), orderBy("createdAt", "desc"));
-        } else if (postType ==="All"){
+        } else if (activeTab ==="All"){
             q = query(postQueryRef, orderBy("createdAt", "desc"));
         } else {
             q = query(
@@ -48,9 +48,11 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
                 orderBy("createdAt", "asc")
               );
         }
+        console.log(q)
         const querySnapshot = await getDocs(q);
         console.log(querySnapshot)
         querySnapshot.forEach((doc) => {
+            console.log(doc.data())
             const dataObj = { ...doc.data(), id: doc.id };
             setPosts((prev) => [...prev, dataObj as PostProps]);
         });
