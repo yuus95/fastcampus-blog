@@ -3,6 +3,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter as Router } from "react-router-dom"
 import { AuthContextProvider } from "context/Authenticate";
+import { ThemeContextProvider } from 'context/Theme';
 
 
 const root = ReactDOM.createRoot(
@@ -11,9 +12,11 @@ const root = ReactDOM.createRoot(
 
 
 root.render(
-  <AuthContextProvider>
-    <Router>
-      <App />
-    </Router>
-  </AuthContextProvider>
+  <ThemeContextProvider>
+    <AuthContextProvider>
+      <Router>
+        <App />
+      </Router>
+    </AuthContextProvider>
+  </ThemeContextProvider>
 );
