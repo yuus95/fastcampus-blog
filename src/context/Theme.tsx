@@ -8,7 +8,7 @@ interface ThemeProps {
 
 type themeType = "light" | "dark";
 
-const ThemeContextV = createContext({
+const ThemeContext = createContext({
     theme: "light" as themeType,
     toggleMode: () => {},
 })
@@ -23,10 +23,10 @@ export const ThemeContextProvider = ({ children }: ThemeProps) => {
     };
 
     return (
-        <ThemeContextV.Provider value = {{theme, toggleMode}}>
+        <ThemeContext.Provider value = {{theme, toggleMode}}>
             {children}
-        </ThemeContextV.Provider>
+        </ThemeContext.Provider>
     );
 }
 
-export default ThemeContextV;
+export default ThemeContext;
