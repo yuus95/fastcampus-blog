@@ -13,7 +13,7 @@ export default function PostDetail() {
     const { user } = useContext(AuthContext);
 
     const params = useParams();
-    const navigate =useNavigate();
+    const navigate = useNavigate();
 
     const getPost = async (id: string) => {
         const docRef = doc(db, "posts", id);
@@ -68,6 +68,25 @@ export default function PostDetail() {
             <div className="post__text">
                 {post?.content}
             </div>
-        </div>
+
+            <div className="post__comment_list">
+                <div className="post__comment__header">
+                    댓글 목록
+                </div>
+                <div className="post__comment_box">
+                    {Array.from({ length: 10 }, (_, index) => (
+                        (<div className="post__comment">
+                            <div className="post__comment_title">
+                                <div>제목</div>
+                                <div>프로필 이미지</div>
+                                <div> 아이디</div>
+                            </div>
+                            <div> 내용</div>
+                        </div>
+                        )
+                    ))}
+                </div>
+            </div>
+        </div >
     </>
 }
