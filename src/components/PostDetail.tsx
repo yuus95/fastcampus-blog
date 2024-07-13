@@ -7,6 +7,7 @@ import { PostProps } from "./PostList";
 import { AuthContext } from "context/Authenticate";
 import { async } from "@firebase/util";
 import { toast } from "react-toastify";
+import Comments from "./Comments";
 
 export default function PostDetail() {
     const [post, setPost] = useState<PostProps | null>(null);
@@ -69,24 +70,7 @@ export default function PostDetail() {
                 {post?.content}
             </div>
 
-            <div className="post__comment_list">
-                <div className="post__comment__header">
-                    댓글 목록
-                </div>
-                <div className="post__comment_box">
-                    {Array.from({ length: 10 }, (_, index) => (
-                        (<div className="post__comment">
-                            <div className="post__comment_title">
-                                <div>제목</div>
-                                <div>프로필 이미지</div>
-                                <div> 아이디</div>
-                            </div>
-                            <div> 내용</div>
-                        </div>
-                        )
-                    ))}
-                </div>
-            </div>
+                <Comments/>
         </div >
     </>
 }
