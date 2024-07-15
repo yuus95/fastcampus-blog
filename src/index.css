@@ -471,6 +471,7 @@ input:checked + .carousel__slide-container .nav label {
   color: red;
 }
 
+
 /* testCarousel */
 .carouselTest {
   margin: 0 auto;
@@ -534,6 +535,19 @@ input:checked + .carousel__slide-container .nav label {
 
 .comment__submit_btn {
   background-color:dodgerblue;
+}
+
+.comment__list {
+  margin-top: 50px;
+}
+
+.comment {
+  margin-bottom: 20px;
+  border-top: 1px solid #f2f2f2;
+}
+
+.comment__id {
+  margin-bottom: 10px;
 }
 
 
