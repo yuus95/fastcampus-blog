@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { on } from "events";
+import { ReactHTMLElement, useState } from "react";
 
 
 const mockComments = [
@@ -80,16 +81,35 @@ date: string
 export default function Comments() {
     const [comment, setComment] = useState("");
 
+
+
+    const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const {name, value}  = e?.target;
+
+        console.log("name" , name, "value", value)
+    
+        if(name ==='comment__text') {
+            setComment(value);
+        }
+    }
+
     return (
         <>
             <div className="comment__form">
                 <span className="comment__form_title">댓글 등록</span>
                 <form action="">
-                    <textarea className="comment__form_text" />
+                    <textarea className="comment__form_text" 
+                    name = "comment__text"
+                    onChange={onChange}
+                    />
 
-                    <div className="comment__submit_btn_div">
-                        <input type="button" className="comment__submit_btn" name="comment__submit_btn" value="입력" />
+                    <div className="comment__submit_btn_reserve">
+                        <input type="button" 
+                        className="comment__submit_btn" 
+                        name="comment__submit_btn" 
+                        value="등록" />
                     </div>
+
                 </form>
             </div>
             <div className="comment__list">

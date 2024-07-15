@@ -528,7 +528,7 @@ input:checked + .carousel__slide-container .nav label {
   line-height: 1.5;
 }
 
-.comment__submit_btn_div {
+.comment__submit_btn_reserve {
   display: flex;
   flex-direction: row-reverse;
 }
