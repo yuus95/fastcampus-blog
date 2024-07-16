@@ -69,8 +69,7 @@ export default function PostDetail() {
             <div className="post__text">
                 {post?.content}
             </div>
-
-                <Comments/>
+            {post && <Comments postDetail={post} />}
         </div >
     </>
 }

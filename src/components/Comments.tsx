@@ -1,5 +1,6 @@
 import { on } from "events";
 import { ReactHTMLElement, useState } from "react";
+import { PostProps } from "./PostList";
 
 
 const mockComments = [
@@ -78,11 +79,14 @@ email:string,
 date: string
 }
 
-export default function Comments() {
+interface CommentsProps {
+    postDetail: PostProps;
+  }
+  
+
+  export default function Comments({ postDetail }: CommentsProps) {
     const [comment, setComment] = useState("");
-
-
-
+    console.log("posts",postDetail)
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const {name, value}  = e?.target;
 
