@@ -1,6 +1,10 @@
 import { on } from "events";
-import { ReactHTMLElement, useState } from "react";
+import { ReactHTMLElement, useContext, useState } from "react";
 import { PostProps } from "./PostList";
+import { AuthContext } from "context/Authenticate";
+import { db } from "firebaseApp";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 
 const mockComments = [
@@ -73,24 +77,53 @@ const mockComments = [
 ]
 
 type comment = {
-id: number,
-comment: string,
-email:string,
-date: string
+    id: number,
+    comment: string,
+    email: string,
+    date: string
 }
 
 interface CommentsProps {
     postDetail: PostProps;
-  }
-  
+}
 
-  export default function Comments({ postDetail }: CommentsProps) {
+
+export default function Comments({ postDetail }: CommentsProps) {
     const [comment, setComment] = useState("");
+    const { user } = useContext(AuthContext);
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (postDetail && postDetail.id && user) {
+            try{
+                const postDetailResult = doc(db, "posts", postDetail.id);
+                await updateDoc(postDetailResult, {
+                    comments: arrayUnion({
+                        uid: user.uid,
+                        email: user.email,
+                        comment: comment,
+                        createAt: new Date()?.toLocaleDateString("ko", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                        }),
+                    })
+                })
+                toast.success("댓글 등록이 완료됐습니다.");
+                setComment("");
+            } catch(e: any){
+                console.log(e.code)
+            }
+        }
+
+
+    }
 
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const {name, value}  = e?.target;
-    
-        if(name ==='comment__text') {
+        const { name, value } = e?.target;
+
+        if (name === 'comment__text') {
             setComment(value);
         }
     }
@@ -99,17 +132,18 @@ interface CommentsProps {
         <>
             <div className="comment__form">
                 <span className="comment__form_title">댓글 등록</span>
-                <form action="">
-                    <textarea className="comment__form_text" 
-                    name = "comment__text"
-                    onChange={onChange}
+                <form onSubmit={onSubmit}>
+                    <textarea className="comment__form_text"
+                        name="comment__text"
+                        onChange={onChange}
+                        value={comment}
                     />
 
                     <div className="comment__submit_btn_reserve">
-                        <input type="button" 
-                        className="comment__submit_btn" 
-                        name="comment__submit_btn" 
-                        value="등록" />
+                        <input type="submit"
+                            className="comment__submit_btn"
+                            name="comment__submit_btn"
+                            value="등록" />
                     </div>
 
                 </form>
