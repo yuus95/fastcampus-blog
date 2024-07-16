@@ -86,11 +86,9 @@ interface CommentsProps {
 
   export default function Comments({ postDetail }: CommentsProps) {
     const [comment, setComment] = useState("");
-    console.log("posts",postDetail)
+
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const {name, value}  = e?.target;
-
-        console.log("name" , name, "value", value)
     
         if(name ==='comment__text') {
             setComment(value);

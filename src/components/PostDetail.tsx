@@ -33,7 +33,7 @@ export default function PostDetail() {
     const onClickDelete = async () => {
         if (post && post.id) {
             try {
-                console.log(post);
+
                 await deleteDoc(doc(db, "posts", post.id));
                 toast.success("게시글을 삭제했습니다.");
                 navigate("/");

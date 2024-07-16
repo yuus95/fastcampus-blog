@@ -34,25 +34,24 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
 
     const getPostList = async () => {
         const postQueryRef = collection(db, "posts")
-        console.log(activeTab);
+
         setPosts([]);
         let q;
         if (activeTab === 'My' && user) {
             q = query(postQueryRef, where("email", "==", user.email), orderBy("createdAt", "desc"));
-        } else if (activeTab ==="All"){
+        } else if (activeTab === "All") {
             q = query(postQueryRef, orderBy("createdAt", "desc"));
         } else {
             q = query(
                 postQueryRef,
                 where("category", "==", activeTab),
                 orderBy("createdAt", "asc")
-              );
+            );
         }
-        console.log(q)
+
         const querySnapshot = await getDocs(q);
-        console.log(querySnapshot)
+
         querySnapshot.forEach((doc) => {
-            console.log(doc.data())
             const dataObj = { ...doc.data(), id: doc.id };
             setPosts((prev) => [...prev, dataObj as PostProps]);
         });
@@ -75,7 +74,7 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
 
     useEffect(() => {
         getPostList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab])
 
     return (
@@ -102,11 +101,11 @@ export default function PostList({ hasNavigation = true, postType = 'My' }: Post
                                     <div className="post__date">{post?.createdAt}</div>
                                 </div>
                                 <div className="post__title">
-                                    {post?.title} 
-                                    {post?.category && 
-                                    <div className="post__category"> 
-                                       {post?.category} 
-                                    </div>
+                                    {post?.title}
+                                    {post?.category &&
+                                        <div className="post__category">
+                                            {post?.category}
+                                        </div>
                                     }
                                 </div>
                                 <div className="post__text">

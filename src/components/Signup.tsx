@@ -47,7 +47,7 @@ export default function SignUp() {
             if (value.length < 8) {
                 setError("비밀번호는 8글자 이상입니다.");
             } else if (passwordConfirm.length > 0 && value !== passwordConfirm) {
-                console.log('password', password, ' passowrdConfirm', passwordConfirm)
+
                 setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.")
             } else {
                 setError("");
@@ -59,7 +59,7 @@ export default function SignUp() {
             if (value.length < 8) {
                 setError("비밀번호는 8글자 이상입니다.");
             } else if (password.length > 0 && value !== password) {
-                console.log('password', password, ' passowrdConfirm', passwordConfirm)
+
                 setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.")
             } else {
                 setError("");
